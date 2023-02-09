@@ -1,2 +1,2 @@
 #!/bin/bash
-chowng guillaume:betty hello
+chown betty:guillaume hello

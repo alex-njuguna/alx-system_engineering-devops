@@ -1,0 +1,2 @@
+#!/bin/bash
+chowng guillaume:betty hello

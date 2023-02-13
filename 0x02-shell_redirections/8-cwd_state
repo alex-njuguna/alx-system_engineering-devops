@@ -1,2 +1,2 @@
 #!/bin/bash
-ls -la > ls_wcd_content
+ls -la >> ls_wcd_content

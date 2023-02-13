@@ -1,2 +1,2 @@
 #!/bin/bash
-rm -R *.js .
+find . -type d -path './*' -print | wc -l

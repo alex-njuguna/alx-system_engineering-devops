@@ -1,4 +1,4 @@
-#! /usr/bin/env bash
+#!/usr/bin/env bash
 # print best school 10 times
 number=1
 until [ $number -eq 11 ]

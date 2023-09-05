@@ -45,8 +45,8 @@ frontend th3gr00t-tech-frontend
 
 backend th3gr00t-tech-backend
     balance roundrobin
-    server 453-web-01 35.243.128.200:80 check
-    server 453-web-02 3.239.120.96:80 check
+    server 256113-web-01 52.87.216.50:80 check
+    server 256113-web-02 100.25.20.141:80 check
 "
 
 # shellcheck disable=SC2154

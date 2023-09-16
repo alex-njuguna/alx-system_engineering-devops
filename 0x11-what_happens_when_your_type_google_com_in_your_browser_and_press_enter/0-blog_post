@@ -1,0 +1,39 @@
+Before we begin here are brief terminologies that you should be aware of:
+
+DNS request — a query sent to a DNS server to translate a domain name into an IP address.
+
+TCP/IP(Transmission Control Protocol/Internet Protocol) — A suite of communication protocols that underlie the internet. TCP/IP is responsible for breaking down data into packets, routing those packets to their destination, and reassembling the packets at the destination.
+
+Firewall — A firewall is a network security device that monitors and controls incoming and outgoing network traffic based on a set of security rules.
+
+HTTPS/SSL(Hypertext Transfer Protocol Secure/Secure Sockets Layer) — A protocol used to encrypt communication between a web browser and a web server.
+
+Load-balancer — A load balancer is a device that distributes traffic across multiple servers to improve reliability and prevent server overloading.
+
+Web server — This is a computer program that delivers web pages to users/clients.
+
+Application server — This here is a server or software platform that hosts and executes applications.
+
+Database — Databases are used to store and organize data so that it can be easily accessed and managed.
+
+This is a graphical representation of the workings:
+
+When you type “https://www.google.com" into your web browser’s address bar and press enter, a complex series of processes unfolds seamlessly behind the scenes to deliver the Google homepage to your screen.
+
+First, your computer initiates a DNS (Domain Name System) request. This request is sent to a DNS server, which translates the human-readable domain name “www.google.com" into an IP address, such as 172.217.10.78, allowing your computer to locate the server hosting Google’s website.
+
+Next, your computer establishes a connection using the TCP/IP protocol suite. This ensures data can be transmitted reliably between your device and Google’s servers.
+
+To ensure security, your connection is encrypted using HTTPS/SSL (Hypertext Transfer Protocol Secure/Secure Sockets Layer). This encryption safeguards your data from interception during transmission.
+
+Before reaching Google’s actual servers, your request might pass through a firewall, which acts as a security barrier, filtering and monitoring incoming and outgoing traffic to protect against unauthorized access and cyber threats.
+
+To distribute the incoming traffic efficiently, Google employs load balancers. These devices distribute user requests across multiple web servers to optimize performance, enhance reliability, and prevent overloading of any single server.
+
+Once the request reaches Google’s web servers, they retrieve the web page’s static content, such as images and HTML files. Simultaneously, application servers may be employed to handle dynamic content generation, like personalized search results.
+
+To deliver personalized content and search results, the application servers interact with a database. This database stores vast amounts of data, such as user preferences, search history, and indexed web pages, ensuring the search engine can respond quickly and accurately.
+
+Ultimately, the requested web page’s components, both static and dynamic, are assembled, and the response is sent back through the same channels: encrypted with HTTPS/SSL, balanced for efficiency, passing through firewalls for security, and finally reaching your computer via the TCP/IP connection.
+
+In summary, when you type “https://www.google.com" and hit enter, a complex orchestration involving DNS requests, TCP/IP communication, firewalls, HTTPS/SSL encryption, load balancers, web servers, application servers, and databases seamlessly collaborate to deliver the Google homepage to your web browser, all in a matter of milliseconds.

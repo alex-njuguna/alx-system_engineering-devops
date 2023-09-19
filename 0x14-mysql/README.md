@@ -1,0 +1,1 @@
+setting up mysql db in servers 1 & 2

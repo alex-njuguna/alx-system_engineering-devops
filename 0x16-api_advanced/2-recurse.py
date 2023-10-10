@@ -1,30 +1,47 @@
 #!/usr/bin/python3
-"""Function to query a list of all hot posts on a given Reddit subreddit."""
+"""Function to query a list of all hot posts on a given
+ Reddit subreddit."""
 import requests
 
 
-def recurse(subreddit, hot_list=[], after="", count=0):
-    """Returns a list of titles of all hot posts on a given subreddit."""
-    url = "https://www.reddit.com/r/{}/hot/.json".format(subreddit)
-    headers = {
-        "User-Agent": "linux:0x16.api.advanced:v1.0.0 (by /u/bdov_)"
+def recurse(subreddit, hot_list=[], after=None):
+    """Base case: if after is None, there are no more
+    pages, so return the hot_list"""
+    if after is None:
+        return hot_list
+
+    url = f"https://www.reddit.com/r/{subreddit}/hot.json"
+    x = {
+        "User-Agent": "Your_User_Agent"
     }
-    params = {
-        "after": after,
-        "count": count,
-        "limit": 100
+    p = {
+        "limit": 25,
+        "after": after
     }
-    response = requests.get(url, headers=headers, params=params,
-                            allow_redirects=False)
-    if response.status_code == 404:
+
+    z = False
+
+    try:
+        response = requests.get(url, headers=x, params=p, allow_redirects=z)
+
+        if response.status_code == 200:
+            data = response.json().get("data")
+            if data:
+                after = data.get("after")
+                children = data.get("children")
+                for child in children:
+                    title = child.get("data").get("title")
+                    hot_list.append(title)
+
+                return recurse(subreddit, hot_list, after)
+            else:
+                return hot_list
+        elif response.status_code == 404:
+            return None
+        else:
+            print(f"Error: {response.status_code}")
+            return None
+
+    except Exception as e:
+        print(f"An error occurred: {e}")
         return None
-
-    results = response.json().get("data")
-    after = results.get("after")
-    count += results.get("dist")
-    for c in results.get("children"):
-        hot_list.append(c.get("data").get("title"))
-
-    if after is not None:
-        return recurse(subreddit, hot_list, after, count)
-    return hot_list

@@ -4,44 +4,36 @@
 import requests
 
 
-def recurse(subreddit, hot_list=[], after=None):
-    """Base case: if after is None, there are no more
-    pages, so return the hot_list"""
-    if after is None:
-        return hot_list
+def recurse(subreddit, hot_list=[]):
+    """Recursively queries the Reddit API and returns a
+    list containing the titles of all hot articles for a given subreddit.
 
-    url = f"https://www.reddit.com/r/{subreddit}/hot.json"
-    x = {
-        "User-Agent": "Your_User_Agent"
-    }
-    p = {
-        "limit": 25,
-        "after": after
-    }
+    Args:
+    subreddit: The name of the subreddit to query.
+    hot_list: A list to store the titles of the hot articles.
 
-    z = False
+    Returns:
+    A list containing the titles of all hot articles for the given subreddit,
+    or None if no results are found.
+    """
 
-    try:
-        response = requests.get(url, headers=x, params=p, allow_redirects=z)
+    """Make a request to the Reddit API."""
+    response = requests.get(
+        f"https://oauth.reddit.com/r/{subreddit}/hot.json",
+        headers={"Authorization": "Bearer YOUR_REDDIT_API_TOKEN"},
+    )
 
-        if response.status_code == 200:
-            data = response.json().get("data")
-            if data:
-                after = data.get("after")
-                children = data.get("children")
-                for child in children:
-                    title = child.get("data").get("title")
-                    hot_list.append(title)
+    """Check if the request was successful."""
+    if response.status_code == 200:
+        """Parse the JSON response."""
+        data = response.json()
 
-                return recurse(subreddit, hot_list, after)
-            else:
-                return hot_list
-        elif response.status_code == 404:
-            return None
-        else:
-            print(f"Error: {response.status_code}")
-            return None
+    for post in data["data"]["children"]:
+        hot_list.append(post["data"]["title"])
 
-    except Exception as e:
-        print(f"An error occurred: {e}")
+    if data["data"]["after"]:
+        return recurse(subreddit, hot_list)
+    else:
         return None
+
+    return hot_list
